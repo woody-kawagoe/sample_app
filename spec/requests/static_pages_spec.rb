@@ -64,7 +64,5 @@ describe "Static pages" do
 
     click_link "sample app"
     expect(page).to have_title(full_title(''))
-
-
   end
 end
