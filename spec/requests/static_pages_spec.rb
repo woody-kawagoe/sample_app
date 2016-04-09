@@ -32,6 +32,15 @@ describe "Static pages" do
           expect(page).to have_selector("li##{item.id}", text: item.content)
         end
       end
+
+      it "should show delete link" do
+        user2 = FactoryGirl.create(:user)
+        FactoryGirl.create(:micropost, user: user2, content: "Lorem ipsum")
+
+        expect(page).to have_selector("li#1", text: "delete")
+        expect(page).not_to have_selector("li#3", text: "delete")
+      end
+
     end
   end
 
