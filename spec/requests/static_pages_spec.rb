@@ -33,6 +33,17 @@ describe "Static pages" do
         end
       end
 
+      describe "follower/following counts" do
+        let(:other_user) { FactoryGirl.create(:user) }
+        before do
+          other_user.follow!(user)
+          visit root_path
+        end
+
+        it { should have_link("0 following", href: following_user_path(user)) }
+        it { should have_link("1 followers", href: followers_user_path(user)) }
+      end
+
       it "should show delete link" do
         user2 = FactoryGirl.create(:user)
         FactoryGirl.create(:micropost, user: user2, content: "Lorem ipsum")
@@ -40,7 +51,6 @@ describe "Static pages" do
         expect(page).to have_selector("li#1", text: "delete")
         expect(page).not_to have_selector("li#3", text: "delete")
       end
-
     end
   end
 
